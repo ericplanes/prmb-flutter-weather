@@ -1,0 +1,1 @@
+Aqui tota la connexió amb la base de dades i la api.
