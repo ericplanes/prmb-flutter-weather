@@ -1,1 +1,0 @@
-Aqui les classes base tipo User, i totes aquestes. Tipus d'objecte basicament.
