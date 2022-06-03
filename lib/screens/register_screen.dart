@@ -2,31 +2,40 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/screens/profile_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  // Login function
-  static Future<User?> loginUsingEmailPassword(
+class _RegisterScreenState extends State<RegisterScreen> {
+  // Register function
+  static Future<User?> registerUsingEmailPassword(
       {required String email,
       required String password,
+      required String confirmPassword,
       required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
+    if (password != confirmPassword) {
+      print('The password and the confirmation password are different.');
+      return null;
+    }
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found") {
-        print("User not found for that email.");
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
       }
+    } catch (e) {
+      print(e);
     }
-    return user;
+    return auth.currentUser;
   }
 
   @override
@@ -34,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // Create the TextField Controller
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
+    TextEditingController _confirmPasswordController = TextEditingController();
     return Material(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -42,15 +52,15 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Weather APP",
+              "Weather",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
-              ), // TextStyle
-            ), //Text
+              ),
+            ),
             const Text(
-              "Login User",
+              "Register User APP",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 44.0,
@@ -82,9 +92,13 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 12.0,
             ),
-            const Text(
-              "Did you forgot the password?",
-              style: TextStyle(color: Colors.blue),
+            TextField(
+              controller: _confirmPasswordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: "Confirm Your Password",
+                prefixIcon: Icon(Icons.lock, color: Colors.black),
+              ),
             ),
             const SizedBox(
               height: 50.0,
@@ -97,22 +111,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
-                ), // RoundedRectangleBorder
+                ),
                 onPressed: () async {
-                  User? user = await loginUsingEmailPassword(
+                  User? user = await registerUsingEmailPassword(
                       email: _emailController.text,
                       password: _passwordController.text,
+                      confirmPassword: _confirmPasswordController.text,
                       context: context);
                   print(user);
                   if (user != null) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ProfileScreen()));
-                  } else {
-                    setState(() {});
+                        builder: (context) => const ProfileScreen()));
                   }
                 },
                 child: const Text(
-                  "Login",
+                  "Register",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
