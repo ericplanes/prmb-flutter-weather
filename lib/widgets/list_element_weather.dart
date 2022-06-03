@@ -17,7 +17,7 @@ Widget listElement(BuildContext context, String cityName, String temp) {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          height: 51,
+          height: 40,
           child: Row(
             children: [
               Expanded(

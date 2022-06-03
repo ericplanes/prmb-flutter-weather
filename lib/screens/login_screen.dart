@@ -19,9 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
     User? user;
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          //email: email, password: password);
-          email: "prova@gmail.com",
-          password: "contra1");
+          email: email, password: password);
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
