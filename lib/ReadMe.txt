@@ -1,0 +1,2 @@
+L'estructura de fitxers l'he tret de: https://medium.com/flutter-community/scalable-folder-structure-for-flutter-applications-183746bdc320
+És per fer-nos una idea de més o menys on anar ficant les coses. Tampoc fa falta cumplir al peu de la lletra.
