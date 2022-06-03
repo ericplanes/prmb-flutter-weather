@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:weather/screens/profile_screen.dart';
+import 'package:weather/screens/weather_main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,7 +19,9 @@ class _LoginScreenState extends State<LoginScreen> {
     User? user;
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
+          //email: email, password: password);
+          email: "prova@gmail.com",
+          password: "contra1");
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
@@ -49,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.black,
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
-              ), // TextStyle
-            ), //Text
+              ),
+            ),
             const Text(
               "Login User",
               style: TextStyle(
@@ -109,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   print(user);
                   if (user != null) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()));
+                        builder: (context) => const WeatherMainScreen()));
                   } else {
                     setState(() {});
                   }

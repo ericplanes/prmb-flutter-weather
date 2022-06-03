@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:weather/screens/profile_screen.dart';
+import 'package:weather/screens/weather_main_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   print(user);
                   if (user != null) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()));
+                        builder: (context) => const WeatherMainScreen()));
                   } else {
                     setState(() {});
                   }
