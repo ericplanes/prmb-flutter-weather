@@ -24,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         print("User not found for that email.");
+      } else if (e.code == "invalid-password") {
+        print("Invalid password for this email.");
       }
     }
     return user;
@@ -100,13 +102,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ), // RoundedRectangleBorder
                 onPressed: () async {
                   User? user = await loginUsingEmailPassword(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                      context: context);
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    context: context,
+                  );
                   print(user);
                   if (user != null) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ProfileScreen()));
+                        builder: (context) => const ProfileScreen()));
                   } else {
                     setState(() {});
                   }

@@ -32,6 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
       }
+      return null;
     } catch (e) {
       print(e);
     }
@@ -122,6 +123,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   if (user != null) {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const ProfileScreen()));
+                  } else {
+                    setState(() {});
                   }
                 },
                 child: const Text(
