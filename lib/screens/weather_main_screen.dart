@@ -4,11 +4,12 @@ import 'package:weather/services/weather_api_client.dart';
 import '../models/weather_model.dart';
 import '../widgets/additional_info_weather.dart';
 import '../widgets/current_weather.dart';
-
-String globalCityName = "Barcelona";
+import 'city_list_screen.dart';
 
 class WeatherMainScreen extends StatefulWidget {
   const WeatherMainScreen({Key? key}) : super(key: key);
+
+  static String globalCityName = "Barcelona";
 
   @override
   State<WeatherMainScreen> createState() => _WeatherMainScreenState();
@@ -18,7 +19,7 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
   WeatherApiClient client = WeatherApiClient();
   Weather? data = Weather();
   Future<void> getData({required String cityName}) async {
-    if (cityName.isEmpty) cityName = globalCityName;
+    if (cityName.isEmpty) cityName = WeatherMainScreen.globalCityName;
     data = await client.getCurrentWeather(cityName);
   }
 
@@ -78,7 +79,8 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                           icon: const Icon(Icons.done),
                           onPressed: () {
                             setState(() {
-                              globalCityName = _cityController.text;
+                              WeatherMainScreen.globalCityName =
+                                  _cityController.text;
                             });
                           },
                         ),
@@ -115,6 +117,31 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                   "${data?.humidity}",
                   "${data?.pressure}",
                   "${data?.feelsLike}",
+                ),
+                const SizedBox(
+                  height: 40.0,
+                ),
+                SizedBox(
+                  width: 200.0,
+                  child: RawMaterialButton(
+                    fillColor: const Color(0xFF0069FE),
+                    elevation: 0.0,
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ), // RoundedRectangleBorder
+                    onPressed: () async {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const CityListWeather()));
+                    },
+                    child: const Text(
+                      "Show City List",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             );

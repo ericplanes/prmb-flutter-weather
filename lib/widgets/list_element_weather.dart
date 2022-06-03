@@ -26,17 +26,11 @@ Widget listElement(BuildContext context, String cityName, String temp) {
                   style: normalFont,
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
               Expanded(
                 child: Text(
                   temp,
                   style: tempFont,
                 ),
-              ),
-              const SizedBox(
-                width: 10,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -46,7 +40,7 @@ Widget listElement(BuildContext context, String cityName, String temp) {
                 child: IconButton(
                   icon: const Icon(Icons.add),
                   onPressed: () {
-                    globalCityName = cityName;
+                    WeatherMainScreen.globalCityName = cityName;
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const WeatherMainScreen()));
                   },
