@@ -19,7 +19,9 @@ class _LoginScreenState extends State<LoginScreen> {
     User? user;
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: "prova@gmail.com", password: "contra1");
+          //email: email, password: password);
+          email: "prova@gmail.com",
+          password: "contra1");
       user = userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
@@ -49,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.black,
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
-              ), // TextStyle
-            ), //Text
+              ),
+            ),
             const Text(
               "Login User",
               style: TextStyle(
