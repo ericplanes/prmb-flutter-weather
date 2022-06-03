@@ -21,11 +21,18 @@ class _CityListWeatherState extends State<CityListWeather> {
   Weather? data5 = Weather();
   Future<void> getData({required String cityName}) async {
     if (cityName.isEmpty) cityName = WeatherMainScreen.globalCityName;
+    switch (cityName) {
+      case "Berlin":
+      case "Londres":
+      case "Paris":
+      case "Tokyo:":
+        cityName = "Barcelona";
+    }
     data = await client.getCurrentWeather(cityName);
     data2 = await client.getCurrentWeather("Berlin");
     data3 = await client.getCurrentWeather("Londres");
     data4 = await client.getCurrentWeather("Paris");
-    data5 = await client.getCurrentWeather("Tokio");
+    data5 = await client.getCurrentWeather("Tokyo");
   }
 
   @override
