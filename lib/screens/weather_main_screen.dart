@@ -90,7 +90,6 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                   height: 20.0,
                 ),
                 currentWeather(
-                  Icons.wb_sunny_rounded,
                   "Min: ${data?.tempMin}",
                   "Max: ${data?.tempMax}",
                   "${data?.temp}",

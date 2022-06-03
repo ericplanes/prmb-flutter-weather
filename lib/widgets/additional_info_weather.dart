@@ -7,7 +7,7 @@ TextStyle infoFont =
     const TextStyle(fontWeight: FontWeight.w400, fontSize: 18.0);
 
 Widget additionalInformation(
-    String wind, String humidity, String pressure, String feels_like) {
+    String wind, String humidity, String pressure, String feelsLike) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(18.0),
@@ -82,7 +82,7 @@ Widget additionalInformation(
                   height: 18.0,
                 ),
                 Text(
-                  feels_like,
+                  feelsLike,
                   style: infoFont,
                 ),
               ],
