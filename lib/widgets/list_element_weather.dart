@@ -1,4 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../screens/weather_main_screen.dart';
 
 TextStyle normalFont =
     const TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0);
@@ -6,7 +8,7 @@ TextStyle normalFont =
 TextStyle tempFont =
     const TextStyle(fontWeight: FontWeight.w400, fontSize: 18.0);
 
-Widget listElement(String cityName, String temp) {
+Widget listElement(BuildContext context, String cityName, String temp) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(18.0),
@@ -14,28 +16,38 @@ Widget listElement(String cityName, String temp) {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
+        SizedBox(
+          height: 51,
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
                   cityName,
                   style: normalFont,
                 ),
-                const SizedBox(
-                  height: 18.0,
-                ),
-                Text(
+              ),
+              Expanded(
+                child: Text(
                   temp,
                   style: tempFont,
                 ),
-              ],
-            ),
-          ],
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE6E6EC),
+                  borderRadius: BorderRadius.circular(9.0),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    WeatherMainScreen.globalCityName = cityName;
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const WeatherMainScreen()));
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     ),
