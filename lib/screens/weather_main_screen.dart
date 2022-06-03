@@ -22,9 +22,9 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFf9f9f9),
+      backgroundColor: const Color(0xFFf9f9f9),
       appBar: AppBar(
-        backgroundColor: Color(0xFFf9f9f9),
+        backgroundColor: const Color(0xFFf9f9f9),
         elevation: 0.0,
         title: const Text(
           "Weather APP",
@@ -33,7 +33,7 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           color: Colors.black,
         ),
       ),
@@ -46,6 +46,8 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
               children: [
                 currentWeather(
                   Icons.wb_sunny_rounded,
+                  "Min: ${data?.tempMin}",
+                  "Max: ${data?.tempMax}",
                   "${data?.temp}",
                   "${data?.cityName}",
                 ),
@@ -60,15 +62,15 @@ class _WeatherMainScreenState extends State<WeatherMainScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Divider(),
-                SizedBox(
+                const Divider(),
+                const SizedBox(
                   height: 20.0,
                 ),
                 additionalInformation(
                   "${data?.wind}",
                   "${data?.humidity}",
                   "${data?.pressure}",
-                  "${data?.feels_like}",
+                  "${data?.feelsLike}",
                 ),
               ],
             );
